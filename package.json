@@ -1,0 +1,31 @@
+{
+  "name": "chirper",
+  "version": "1.0.0",
+  "description": "Chirper is a more intuitive version of Twitter.",
+  "main": "chirper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XeLeXiS/Chirper.git"
+  },
+  "keywords": [
+    "Chirper",
+    "Twitter",
+    "social",
+    "network",
+    "Express"
+  ],
+  "author": "Maxim Sorokin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/XeLeXiS/Chirper/issues"
+  },
+  "homepage": "https://github.com/XeLeXiS/Chirper#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}
