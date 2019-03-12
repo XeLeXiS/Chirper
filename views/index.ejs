@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Chirper</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header>
+            <h1>Chirper</h1>
+        </header>
+        <ul class="chirps">
+            <% for (let i = 0; i < chirps.length; ++i) { %>
+                <li><%= chirps[i].content %></li>
+            <% } %>
+        </ul>
+        <form method="POST">
+            <textarea name="content" rows="2" cols="20"></textarea><br> 
+            <input type="submit" value="Chirp">
+        </form>
+        <footer>
+           <p>&copy; 2019</p>         
+        </footer>
+    </body>
+</html>
