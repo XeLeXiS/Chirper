@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const mysql = require('mysql')
 
@@ -13,10 +14,25 @@ const connection = mysql.createConnection({
     database : process.env.CHIRPER_DB_NAME
 })
 
-connection.query(`SELECT * FROM chirps where=1;`, (_, results, fields) => {
-    console.log(results[0].content)
-})
-
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true}))
+app.set('view engine', 'ejs')
+
+app.get('/', (_, response) => {
+    connection.query('SELECT * FROM chirps;', (error, results) => {
+        if (error) throw error
+        response.render('index', { 'chirps' : results })
+    })
+})
+app.post('/', (request, response) => {
+    const content = request.body.content
+    connection.query("INSERT INTO chirps SET ?;", { 'content' : content }, error => {
+        if (error) throw error
+        response.writeHead(302, {
+            'Location': '/'
+        });
+        response.end();
+    })
+})
 
 app.listen(port, () => console.log(`The Chirper server is listening on port ${port}.`))
