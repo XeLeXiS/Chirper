@@ -17,7 +17,7 @@ const sequelize = new Sequelize({
     'password' : process.env.CHIRPER_DB_PASS,
     'dialect'  : 'mysql'
 })
-
+// 
 // const User = sequelize.define('user', {
 //     'login' : {
 //         'type' : Sequelize.STRING,

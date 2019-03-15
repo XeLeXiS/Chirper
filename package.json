@@ -1,6 +1,6 @@
 {
   "name": "chirper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Chirper is a more intuitive version of Twitter.",
   "main": "chirper.js",
   "scripts": {
