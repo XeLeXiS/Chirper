@@ -17,18 +17,18 @@ const sequelize = new Sequelize({
     'password' : process.env.CHIRPER_DB_PASS,
     'dialect'  : 'mysql'
 })
-// 
-// const User = sequelize.define('user', {
-//     'login' : {
-//         'type' : Sequelize.STRING,
-//         'allowNull' : false,
-//         'unique' : true
-//     },
-//     'password' : {
-//         'type' : Sequelize.STRING,
-//         'allowNull' : false
-//     }
-// });
+
+const User = sequelize.define('user', {
+    'login' : {
+        'type' : Sequelize.STRING,
+        'allowNull' : false,
+        'unique' : true
+    },
+    'password' : {
+        'type' : Sequelize.STRING,
+        'allowNull' : false
+    }
+});
 
 const Chirp = sequelize.define('chirp', {
     'content' : {
@@ -37,8 +37,8 @@ const Chirp = sequelize.define('chirp', {
     }
 });
 
-// User.hasMany(Chirp)
-// Chirp.belongsTo(User)
+User.hasMany(Chirp)
+Chirp.belongsTo(User)
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true}))
@@ -64,10 +64,10 @@ app.post('/', (request, response) => {
 })
 
 sequelize.sync().then(() => {
-    // return User.create({
-    //     'login': 'user',
-    //     'password': process.env.CHIRPER_TEST_USER_PASS
-    // })
+    return User.create({
+        'login': 'user',
+        'password': process.env.CHIRPER_TEST_USER_PASS
+    })
 }).then(() => {
     app.listen(port, () => console.log(`The Chirper server is listening on port ${port}.`))
 });
