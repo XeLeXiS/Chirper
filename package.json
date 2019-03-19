@@ -24,11 +24,14 @@
   },
   "homepage": "https://github.com/XeLeXiS/Chirper#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.1.0",
+    "sequelize-cli": "^5.4.0"
   }
 }

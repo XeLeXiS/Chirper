@@ -8,18 +8,28 @@
     <body>
         <header>
             <h1>Chirper</h1>
+            <p class="user-panel"></p>
+                <% if (session.authorized) { %>
+                    <%= session.login %>
+                    (<a href="/logout">Log Out</a>)
+                <% } else { %>
+                    <a href="/login">Log In</a>
+                <% } %>
+                </p>
         </header>
         <ul class="chirps">
             <% for (let i = 0; i < chirps.length; ++i) { %>
                 <li><%= chirps[i].content %></li>
             <% } %>
         </ul>
-        <form method="POST">
-            <textarea name="content" rows="2" cols="20"></textarea><br> 
-            <input type="submit" value="Chirp">
-        </form>
+        <% if (session.authorized) { %>
+            <form action="/" method = "POST">
+                <textarea name="content" rows="2" cols="20"></textarea><br> 
+                <input type="submit" value="Chirp">
+            </form>
+        <% } %>
         <footer>
-           <p>&copy; 2019</p>         
+           <p>&copy; 2018</p>         
         </footer>
     </body>
 </html>
