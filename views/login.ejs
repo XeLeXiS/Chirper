@@ -9,6 +9,12 @@
         <header>
             <h1>Chirper</h1>
         </header>
+        <% if (session.error) { %>
+            <p class='error-message'>
+                <%= session.error %>
+            </p>
+            <% delete session.error %>
+        <% } %>
         <form action="/login" method="POST">
             <label>
                 Login
