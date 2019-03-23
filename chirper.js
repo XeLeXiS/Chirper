@@ -85,8 +85,18 @@ app.post('/', (request, response) => {
     })
 })
 
+app.get('/register', (request, response) => {
+    response.render('register', { 'session' : request.session })
+})
+
 app.get('/login', (request, response) => {
     response.render('login', { 'session' : request.session })
+})
+
+app.get('/logout', (request, response) => {
+    request.session.regenerate(() => {
+        response.redirect('/')
+    })
 })
 
 app.post('/login', (request, response) => {
@@ -113,9 +123,58 @@ app.post('/login', (request, response) => {
     })
 })
 
-app.get('/logout', (request, response) => {
-    request.session.regenerate(() => {
-        response.redirect('/')
+app.post('/register', (request, response) => {
+    const login = request.body.login
+    const password = request.body.password
+    const passwordRepeat = request.body['password-validate']
+
+    if (!login) {
+        console.error('Invalid registration attempt: empty login field')
+
+        request.session.error = "The login can't be empty."
+        response.redirect('/register')
+
+        return;
+    }
+    if (!password) {
+        console.error('Invalid registration attempt: empty password field')
+
+        request.session.error = "The password can't be empty."
+        response.redirect('/register')
+
+        return;
+    }
+
+    User.findOne({ 'where' : { 'login' : login } }).then(user => {
+        if (user) {
+            console.error('Invalid registration attempt: user exists')
+
+            request.session.error = 'This login has already been taken.'
+            response.redirect('/register')
+
+            return;
+        }
+        if (password != passwordRepeat) {
+            console.error('Invalid registration attempt: passwords don\'t match')
+
+            request.session.error = 'Passwords do not match.'
+            response.redirect('/register')
+
+            return;
+        }
+        
+        User.create({
+            'login': login,
+            'password': bcrypt.hashSync(password, 10)
+        }).then(user => {
+            request.session.authorized = true
+            request.session.login = login
+            request.session.userID = user.id
+            response.redirect('/')
+        })
+    }).catch(error => {
+        console.error(error)
+        response.status(500).end('Internal Server Error')
     })
 })
 
@@ -124,12 +183,6 @@ app.get('/logout', (request, response) => {
 // Создаем структуру базы при помощи ORM и запускаем веб-сервер
 
 sequelize.sync().then(() => {
-    // Создаем тестового пользователя (пока нет регистрации)
-    return User.create({
-        'login': 'user',
-        'password': bcrypt.hashSync(process.env.CHIRPER_TEST_USER_PASS, 10)
-    })
-}).then(() => {
     const port = process.env.CHIRPER_PORT
     app.listen(port, () => console.log(`The Chirper server is listening on port ${port}.`))
 });

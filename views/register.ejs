@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Chirper, Login</title>
+        <title>Chirper, Register</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
@@ -15,16 +15,20 @@
             </p>
             <% delete session.error %>
         <% } %>
-        <form action="/login" method="POST">
+        <form action="/register" method="POST">
             <label>
-                Login
+                Select your login
                 <input type="text" name="login" required>
             </label><br>
             <label>
-                Password
+                Select your Password
                 <input type="password" name="password" required>
             </label><br>
-            <input type="submit" value="Sign In">
+            <label>
+                Repeat your Password
+                <input type="password" name="password-validate" required>
+            </label><br>
+            <input type="submit" value="Sign Up">
         </form>
         <footer>
             <p>&copy; 2018</p>

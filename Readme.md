@@ -23,7 +23,6 @@ CHIRPER_DB_NAME=
 CHIRPER_PORT=
 
 CHIRPER_SESSION_SECRET=
-CHIRPER_TEST_USER_PASS=
 ```
 
 in shell or in `.env` file.

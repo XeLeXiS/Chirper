@@ -13,9 +13,10 @@
                     <%= session.login %>
                     (<a href="/logout">Log Out</a>)
                 <% } else { %>
+                    <a href="/register">Register</a>
                     <a href="/login">Log In</a>
                 <% } %>
-                </p>
+            </p>
         </header>
         <ul class="chirps">
             <% for (let i = 0; i < chirps.length; ++i) { %>
